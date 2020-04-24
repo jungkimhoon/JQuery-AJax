@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<button id="testButton">클릭하시오</button>
+<br>
+<div id="display">
+<table border="1" id="table">
+<thead>
+	<tr>
+		<th>이름</th>
+		<th>주소</th>
+	</tr>
+</thead>
+<tbody></tbody>
+</table>
+</div>
+</body>
+
+<script type="text/javascript" src="http://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+	$('#table').hide();
+	
+	$('#testButton').click(function(){
+		$.getJSON('jQueryAjax05_jsonData.txt', function(data){ //txt의 json을 읽어서 function의 data로 가져온다.
+			//alert(data);
+			//alert(JSON.stringify(data)); //json 형태로 끌어왔는지 확인 가능 stringify(data)
+			
+			$('#table').show();
+			
+			/* 	
+			$.each(data, function(index, value){ //$.each ==> for문 index마다 돌아가며 data의 값을 value로 써먹는다.
+				//alert(index+", "+value);			
+				//alert(index+", "+value.name+", "+value.addr); //직접적으로 꺼내진다.
+				
+				$.each(value, function(key, val){ //index의 항목 : 값
+					alert(index+", "+key+" : "+val);
+					
+				});
+				
+				
+			});
+			 */ 
+			 /////////////////////////////////////
+			 //$('#display tbody').empty();
+			 /*
+			 $('#table tr:gt(0)').remove();
+			 $.each(data, function(index, value){ 
+				 $('#display tbody').append("<tr><td>"+value.name+"</td><td>"+value.addr+"</td></tr>");
+			 });
+			 */
+			 /////////////////////////////////////
+			 
+			 $('#table tr:gt(0)').remove();
+			 
+			 for(index in data){
+				 $('#display tbody').append("<tr><td>"+data[index].name+"</td><td>"+data[index].addr+"</td></tr>"); //위랑 동일한 다른 방식
+			 }
+		});
+	});
+});
+</script>
+</html>
